@@ -1,15 +1,7 @@
 package model
 
 type UsersPermissionsUsers struct {
-	Data []UsersPermissionsUsersData `json:"data"`
-}
-
-type UsersPermissionsUsersData struct {
-	Id         int64                           `json:"id"`
-	Attributes UsersPermissionsUsersAttributes `json:"attributes"`
-}
-
-type UsersPermissionsUsersAttributes struct {
+	Id         int64  `json:"id"`
 	Username   string `json:"username"`
 	Email      string `json:"email"`
 	Provider   string `json:"provider"`

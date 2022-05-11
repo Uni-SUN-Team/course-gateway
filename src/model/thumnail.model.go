@@ -1,15 +1,7 @@
 package model
 
 type Thumnail struct {
-	Data ThumnailData `json:"data"`
-}
-
-type ThumnailData struct {
-	Id         int64                  `json:"id"`
-	Attributes ThumnailDataAttributes `json:"attributes"`
-}
-
-type ThumnailDataAttributes struct {
+	Id                int64                        `json:"id"`
 	Name              string                       `json:"name"`
 	AlternativeText   string                       `json:"alternativeText"`
 	Caption           string                       `json:"caption"`

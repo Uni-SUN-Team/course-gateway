@@ -1,13 +1,20 @@
 package model
 
-type CourseHighLight struct {
+type CourseContent struct {
+	Id           int64        `json:"id"`
+	Title        string       `json:"title"`
+	Description  string       `json:"description"`
+	Content      string       `json:"content"`
+	VideoContent VideoContent `json:"video_content"`
+}
+
+type VideoContent struct {
 	Id                int64                        `json:"id"`
 	Name              string                       `json:"name"`
 	AlternativeText   string                       `json:"alternativeText"`
 	Caption           string                       `json:"caption"`
 	Width             int64                        `json:"width"`
 	Height            int64                        `json:"height"`
-	Formats           ThumnailDataAttributesFormat `json:"formats"`
 	Hash              string                       `json:"hash"`
 	Ext               string                       `json:"ext"`
 	Mime              string                       `json:"mime"`
@@ -18,4 +25,6 @@ type CourseHighLight struct {
 	Provider_metadata string                       `json:"provider_metadata"`
 	CreatedAt         string                       `json:"createdAt"`
 	UpdatedAt         string                       `json:"updatedAt"`
+	Formats           ThumnailDataAttributesFormat `json:"formats"`
+	File              Thumnail                     `json:"file"`
 }

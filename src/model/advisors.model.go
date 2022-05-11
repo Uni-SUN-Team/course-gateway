@@ -1,15 +1,7 @@
 package model
 
 type Advisors struct {
-	Data []AdvisorsData `json:"data"`
-}
-
-type AdvisorsData struct {
-	Id         int64              `json:"id"`
-	Attributes AdvisorsAttributes `json:"attributes"`
-}
-
-type AdvisorsAttributes struct {
+	Id            int64  `json:"id"`
 	FullName      string `json:"full_name"`
 	Email         string `json:"email"`
 	Telephone     string `json:"telephone"`

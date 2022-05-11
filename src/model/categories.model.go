@@ -1,15 +1,7 @@
 package model
 
 type Categories struct {
-	Data []CategoriesData `json:"data"`
-}
-
-type CategoriesData struct {
-	Id         int64                `json:"id"`
-	Attributes CategoriesAttributes `json:"attributes"`
-}
-
-type CategoriesAttributes struct {
+	Id          int64  `json:"id"`
 	Name        string `json:"name"`
 	CreatedAt   string `json:"createdAt"`
 	UpdatedAt   string `json:"updatedAt"`
