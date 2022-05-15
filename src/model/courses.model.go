@@ -23,10 +23,10 @@ type CoursesData struct {
 	Locale          string          `json:"locale"`
 	Slug            string          `json:"slug"`
 	Thumnail        Thumnail        `json:"thumnail"`
-	Categories      []Categories      `json:"categories"`
-	Advisors        []Advisors        `json:"advisors"`
+	Categories      []Categories    `json:"categories"`
+	Advisors        []Advisors      `json:"advisors"`
 	CourseHighLight CourseHighLight `json:"course_high_light"`
-	CourseContent   []CourseContent   `json:"course_content"`
+	CourseContent   []CourseContent `json:"course_content"`
 }
 
 type CoursesPagination struct {
