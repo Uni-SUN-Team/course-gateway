@@ -5,8 +5,13 @@ type Course struct {
 	Meta CoursesPagination `json:"meta"`
 }
 
-type Courses struct {
+type CourseSlug struct {
 	Data []CoursesData     `json:"data"`
+	Meta CoursesPagination `json:"meta"`
+}
+
+type Courses struct {
+	Data []CoursesDatas    `json:"data"`
 	Meta CoursesPagination `json:"meta"`
 }
 
@@ -27,6 +32,24 @@ type CoursesData struct {
 	Advisors        []Advisors      `json:"advisors"`
 	CourseHighLight CourseHighLight `json:"course_high_light"`
 	CourseContent   []CourseContent `json:"course_content"`
+	Rate            Rate            `json:"rate"`
+}
+
+type CoursesDatas struct {
+	Id            int64      `json:"id"`
+	Title         string     `json:"title"`
+	Description   string     `json:"description"`
+	Content       string     `json:"content"`
+	Short_content string     `json:"short_content"`
+	Price         float64    `json:"price"`
+	CreatedAt     string     `json:"createdAt"`
+	UpdatedAt     string     `json:"updatedAt"`
+	PublishedAt   string     `json:"publishedAt"`
+	Locale        string     `json:"locale"`
+	Slug          string     `json:"slug"`
+	Thumnail      Thumnail   `json:"thumnail"`
+	Advisors      []Advisors `json:"advisors"`
+	Rate          Rate       `json:"rate"`
 }
 
 type CoursesPagination struct {

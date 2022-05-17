@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"unisun/api/course-listenner/src/constants"
 	"unisun/api/course-listenner/src/model"
@@ -15,49 +16,54 @@ import (
 
 func CourseAll(c *gin.Context) {
 	var payloadRequest = model.ServiceIncomeRequest{}
-	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_ARTICLE) + "?populate=*"
+	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "?populate[thumnail]=*&populate[advisors][populate][thumnail]=*"
 	payloadRequest.Method = constants.GET
 	payloadRequest.Body = nil
 	if query := c.Request.URL.RawQuery; query != "" {
 		payloadRequest.Path += "&" + strings.Trim(query, "?")
 	}
-	log.Println(payloadRequest.Path)
-	var courses model.Courses
+	var courses = model.Courses{}
 	data := service.GetInformationFormStrapi(payloadRequest)
-	log.Println(data)
 	err := json.Unmarshal([]byte(data.Payload), &courses)
 	if err != nil {
-		log.Println("Change byte to json article", err.Error())
+		log.Panic("Change byte to json article", err.Error())
 	} else {
 		err = nil
 	}
-	c.JSON(http.StatusOK, gin.H{"error": err, "data": courses})
+	for index, item := range courses.Data {
+		var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(item.Id, 10))
+		courses.Data[index].Rate.Star = data_feedback.Score
+		courses.Data[index].Rate.Total = data_feedback.Count
+	}
+	c.JSON(http.StatusOK, gin.H{"error": err, "result": courses.Data, "pagination": courses.Meta.Pagination})
 }
 
 func CourseById(c *gin.Context) {
 	id := c.Param("id")
 	var course model.Course
 	var payloadRequest = model.ServiceIncomeRequest{}
-	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_ARTICLE) + "/" + id + "?populate[course_content][populate]=*&populate[thumnail][populate]=*&populate[course_high_light][populate]=*&populate[advisors][populate]=*&populate[categories][populate]=*&populate[localizations][populate]=*"
+	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "/" + id + "?populate[course_content][populate]=*&populate[thumnail]=*&populate[course_high_light]=*&populate[advisors][populate][thumnail]=*&populate[categories]=*"
 	payloadRequest.Method = constants.GET
 	payloadRequest.Body = nil
 
 	data := service.GetInformationFormStrapi(payloadRequest)
 	err := json.Unmarshal([]byte(data.Payload), &course)
 	if err != nil {
-		log.Println("Change byte to json article", err.Error())
+		log.Panic("Change byte to json article", err.Error())
 	} else {
 		err = nil
 	}
-	c.JSON(http.StatusOK, gin.H{"error": err, "data": course})
+	var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(course.Data.Id, 10))
+	course.Data.Rate.Star = data_feedback.Score
+	course.Data.Rate.Total = data_feedback.Count
+	c.JSON(http.StatusOK, gin.H{"error": err, "result": course.Data})
 }
 
 func CourseBySlug(c *gin.Context) {
 	slug := c.Param("slug")
-	populate := c.DefaultQuery("populate", "*")
-	var courses model.Courses
+	var courses model.CourseSlug
 	var payloadRequest = model.ServiceIncomeRequest{}
-	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_ARTICLE) + "?filters[slug][$eq]=" + slug + "&populate=" + populate
+	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "?populate[course_content][populate]=*&populate[thumnail]=*&populate[course_high_light]=*&populate[advisors][populate][thumnail]=*&populate[categories]=*&filters[slug][$eq]=" + slug
 	payloadRequest.Method = constants.GET
 	payloadRequest.Body = nil
 
@@ -68,5 +74,9 @@ func CourseBySlug(c *gin.Context) {
 	} else {
 		err = nil
 	}
-	c.JSON(http.StatusOK, gin.H{"error": err, "data": courses})
+	var course = courses.Data[0]
+	var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(course.Id, 10))
+	course.Rate.Star = data_feedback.Score
+	course.Rate.Total = data_feedback.Count
+	c.JSON(http.StatusOK, gin.H{"error": err, "result": course})
 }

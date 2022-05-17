@@ -15,7 +15,7 @@ func GetInformationFormStrapi(payloadRequest model.ServiceIncomeRequest) model.S
 	url := os.Getenv(constants.HOST_STRAPI_SERVICE) + os.Getenv(constants.PATH_STRAPI_INFORMATION_GATEWAY)
 	payload, err := json.Marshal(payloadRequest)
 	if err != nil {
-		log.Println("Change json to byte", err.Error())
+		log.Panic("Change json to byte.", err.Error())
 		serviceIncomeResponse.Error = err.Error()
 		return serviceIncomeResponse
 	} else {
@@ -24,7 +24,7 @@ func GetInformationFormStrapi(payloadRequest model.ServiceIncomeRequest) model.S
 	response := utils.HTTPRequest(url, constants.POST, payload)
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Println("Read response from request error.", err.Error())
+		log.Panic("Read response from request error.", err.Error())
 		serviceIncomeResponse.Error = err.Error()
 		return serviceIncomeResponse
 	} else {
@@ -33,7 +33,7 @@ func GetInformationFormStrapi(payloadRequest model.ServiceIncomeRequest) model.S
 	}
 	err = json.Unmarshal([]byte(body), &serviceIncomeResponse)
 	if err != nil {
-		log.Println("Change byte to json response", err.Error())
+		log.Panic("Change byte to json response.", err.Error())
 		serviceIncomeResponse.Error = err.Error()
 		return serviceIncomeResponse
 	} else {
@@ -41,7 +41,7 @@ func GetInformationFormStrapi(payloadRequest model.ServiceIncomeRequest) model.S
 
 	}
 	if serviceIncomeResponse.Error != "" {
-		log.Println(serviceIncomeResponse.Error)
+		log.Panic(serviceIncomeResponse.Error)
 	}
 	return serviceIncomeResponse
 }

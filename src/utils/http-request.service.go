@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"unisun/api/course-listenner/src/constants"
 )
 
 func HTTPRequest(url string, method string, payload []byte) *http.Response {
@@ -22,28 +23,28 @@ func HTTPRequest(url string, method string, payload []byte) *http.Response {
 		Transport: tr,
 	}
 	switch method {
-	case "GET":
+	case constants.GET:
 		body = bytes.NewBuffer(nil)
-	case "POST":
+	case constants.POST:
 		body = bytes.NewBuffer(payload)
-	case "PUT":
+	case constants.PUT:
 		body = bytes.NewBuffer(payload)
-	case "DELETE":
+	case constants.DELETE:
 		body = bytes.NewBuffer(nil)
 	default:
 		body = bytes.NewBuffer(nil)
 	}
 	if err != nil {
-		log.Println("Create request error.", err.Error())
+		log.Panic("Create request error.", err.Error())
 	}
 	request, err = http.NewRequest(method, url, body)
 	if err != nil {
-		log.Println("Client request to "+url+" is not success.", err.Error())
+		log.Panic("Client request to "+url+" is not success.", err.Error())
 	}
 	request.Header.Add("Content-type", "application/json")
 	response, err := client.Do(request)
 	if err != nil {
-		log.Println("Client is error.", err.Error())
+		log.Panic("Client is error.", err.Error())
 	}
 	return response
 }
