@@ -1,0 +1,575 @@
+definitions:
+  model.Advisors:
+    properties:
+      active:
+        type: boolean
+      content:
+        type: string
+      createdAt:
+        type: string
+      dob:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: integer
+      locale:
+        type: string
+      publishedAt:
+        type: string
+      short_content:
+        type: string
+      slug:
+        type: string
+      telephone:
+        type: string
+      thumnail:
+        $ref: '#/definitions/model.ThumnailAttribute'
+        type: object
+      updatedAt:
+        type: string
+    type: object
+  model.Categories:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      locale:
+        type: string
+      name:
+        type: string
+      publishedAt:
+        type: string
+      slug:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.CourseContent:
+    properties:
+      content:
+        type: string
+      description:
+        type: string
+      file:
+        items:
+          $ref: '#/definitions/model.Thumnail'
+        type: array
+      id:
+        type: integer
+      title:
+        type: string
+      video_content:
+        $ref: '#/definitions/model.VideoContent'
+        type: object
+      video_preview:
+        $ref: '#/definitions/model.VideoPreview'
+        type: object
+    type: object
+  model.CourseHighLight:
+    properties:
+      alternativeText:
+        type: string
+      caption:
+        type: string
+      createdAt:
+        type: string
+      ext:
+        type: string
+      hash:
+        type: string
+      height:
+        type: integer
+      id:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      previewUrl:
+        type: string
+      provider:
+        type: string
+      provider_metadata:
+        type: string
+      size:
+        type: number
+      updatedAt:
+        type: string
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.CoursesData:
+    properties:
+      advisors:
+        items:
+          $ref: '#/definitions/model.Advisors'
+        type: array
+      categories:
+        items:
+          $ref: '#/definitions/model.Categories'
+        type: array
+      content:
+        type: string
+      course_content:
+        items:
+          $ref: '#/definitions/model.CourseContent'
+        type: array
+      course_high_light:
+        $ref: '#/definitions/model.CourseHighLight'
+        type: object
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      locale:
+        type: string
+      price:
+        type: number
+      publishedAt:
+        type: string
+      rate:
+        $ref: '#/definitions/model.Rate'
+        type: object
+      short_content:
+        type: string
+      slug:
+        type: string
+      thumnail:
+        $ref: '#/definitions/model.Thumnail'
+        type: object
+      title:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.CoursesDatas:
+    properties:
+      advisors:
+        items:
+          $ref: '#/definitions/model.Advisors'
+        type: array
+      content:
+        type: string
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      locale:
+        type: string
+      price:
+        type: number
+      publishedAt:
+        type: string
+      rate:
+        $ref: '#/definitions/model.Rate'
+        type: object
+      short_content:
+        type: string
+      slug:
+        type: string
+      thumnail:
+        $ref: '#/definitions/model.Thumnail'
+        type: object
+      title:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.CoursesPaginationContent:
+    properties:
+      page:
+        type: integer
+      pageCount:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+    type: object
+  model.Rate:
+    properties:
+      star:
+        type: number
+      total:
+        type: integer
+    type: object
+  model.ResponseCourse:
+    properties:
+      error:
+        type: error
+      result:
+        $ref: '#/definitions/model.CoursesData'
+        type: object
+    type: object
+  model.ResponseCourseAll:
+    properties:
+      error:
+        type: error
+      pagination:
+        $ref: '#/definitions/model.CoursesPaginationContent'
+        type: object
+      result:
+        items:
+          $ref: '#/definitions/model.CoursesDatas'
+        type: array
+    type: object
+  model.Thumnail:
+    properties:
+      alternativeText:
+        type: string
+      caption:
+        type: string
+      createdAt:
+        type: string
+      ext:
+        type: string
+      formats:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormat'
+        type: object
+      hash:
+        type: string
+      height:
+        type: integer
+      id:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      previewUrl:
+        type: string
+      provider:
+        type: string
+      provider_metadata:
+        type: string
+      size:
+        type: number
+      updatedAt:
+        type: string
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.ThumnailAttribute:
+    properties:
+      alternativeText:
+        type: string
+      caption:
+        type: string
+      createdAt:
+        type: string
+      ext:
+        type: string
+      formats:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormatAttribute'
+        type: object
+      hash:
+        type: string
+      height:
+        type: integer
+      id:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      previewUrl:
+        type: string
+      provider:
+        type: string
+      provider_metadata:
+        type: string
+      size:
+        type: number
+      updatedAt:
+        type: string
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.ThumnailDataAttributesFormat:
+    properties:
+      large:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormatLarge'
+        type: object
+      medium:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormatMedium'
+        type: object
+      small:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormatSmall'
+        type: object
+      thumbnail:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormatThumbnail'
+        type: object
+      xsmall:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormatXsmall'
+        type: object
+    type: object
+  model.ThumnailDataAttributesFormatAttribute:
+    properties:
+      thumbnail:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormatThumbnail'
+        type: object
+      xsmall:
+        $ref: '#/definitions/model.ThumnailDataAttributesFormatXsmall'
+        type: object
+    type: object
+  model.ThumnailDataAttributesFormatLarge:
+    properties:
+      ext:
+        type: string
+      hash:
+        type: string
+      height:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      path:
+        type: string
+      size:
+        type: number
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.ThumnailDataAttributesFormatMedium:
+    properties:
+      ext:
+        type: string
+      hash:
+        type: string
+      height:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      path:
+        type: string
+      size:
+        type: number
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.ThumnailDataAttributesFormatSmall:
+    properties:
+      ext:
+        type: string
+      hash:
+        type: string
+      height:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      path:
+        type: string
+      size:
+        type: number
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.ThumnailDataAttributesFormatThumbnail:
+    properties:
+      ext:
+        type: string
+      hash:
+        type: string
+      height:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      path:
+        type: string
+      size:
+        type: number
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.ThumnailDataAttributesFormatXsmall:
+    properties:
+      ext:
+        type: string
+      hash:
+        type: string
+      height:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      path:
+        type: string
+      size:
+        type: number
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.VideoContent:
+    properties:
+      alternativeText:
+        type: string
+      caption:
+        type: string
+      createdAt:
+        type: string
+      ext:
+        type: string
+      hash:
+        type: string
+      height:
+        type: integer
+      id:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      previewUrl:
+        type: string
+      provider:
+        type: string
+      provider_metadata:
+        type: string
+      size:
+        type: number
+      updatedAt:
+        type: string
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.VideoPreview:
+    properties:
+      alternativeText:
+        type: string
+      caption:
+        type: string
+      createdAt:
+        type: string
+      ext:
+        type: string
+      hash:
+        type: string
+      height:
+        type: integer
+      id:
+        type: integer
+      mime:
+        type: string
+      name:
+        type: string
+      previewUrl:
+        type: string
+      provider:
+        type: string
+      provider_metadata:
+        type: string
+      size:
+        type: number
+      updatedAt:
+        type: string
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /course-listenner/api/courses:
+    get:
+      consumes:
+      - application/json
+      description: Course Listener for the service
+      operationId: CourseListenerHandler
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseCourseAll'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseCourseAll'
+      summary: Course Listener
+      tags:
+      - course
+  /course-listenner/api/courses/:id:
+    get:
+      consumes:
+      - application/json
+      description: Course Listener for the service
+      operationId: CourseListenerIdHandler
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseCourse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseCourse'
+      summary: Course Listener
+      tags:
+      - course
+  /course-listenner/api/courses/slug/:slug:
+    get:
+      consumes:
+      - application/json
+      description: Course Listener for the service
+      operationId: CourseListenerSlugHandler
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseCourse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseCourse'
+      summary: Course Listener
+      tags:
+      - course
+  /healthcheck:
+    get:
+      description: Health checking for the service
+      operationId: HealthCheckHandler
+      produces:
+      - text/plain
+      summary: Health Check
+swagger: "2.0"

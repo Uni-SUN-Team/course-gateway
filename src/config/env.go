@@ -11,6 +11,7 @@ func ConfigENV() {
 	 */
 	os.Setenv(constants.PORT, "8080")
 	os.Setenv(constants.CONTEXT_PATH, "/course-listenner")
+	os.Setenv(constants.HOST, "localhost")
 	/**
 	* Highlights: Strapi information gateway
 	 */
