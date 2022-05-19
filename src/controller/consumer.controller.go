@@ -81,7 +81,7 @@ func CourseById(c *gin.Context) {
 	if err != nil {
 		log.Panic("Change byte to json article", err.Error())
 		response.Error = err
-		c.JSON(http.StatusOK, response)
+		c.JSON(http.StatusBadRequest, response)
 	} else {
 		err = nil
 	}
@@ -118,7 +118,7 @@ func CourseBySlug(c *gin.Context) {
 	if err != nil {
 		log.Println("Change byte to json article", err.Error())
 		response.Error = err
-		c.JSON(http.StatusOK, response)
+		c.JSON(http.StatusBadRequest, response)
 	} else {
 		err = nil
 	}
