@@ -8,7 +8,7 @@ ENV HOST_STRAPI_SERVICE=http://strapi-information-gateway:8080
 ENV PATH_STRAPI_INFORMATION_GATEWAY=/strapi-information-gateway/api/strapi
 ENV HOST_FEEDBACK_PROCESSOR_API=http://feedback-processor-api:8080
 ENV PATH_FEEDBACK_PROCESSOR_API=/feedback-processor-api/api/feedbacks/
-ENV VERSION=1.0.4
+ENV VERSION=1.0.5
 ENV HOST=api.unisun.dynu.com
 ENV GIN_MODE=release
 
