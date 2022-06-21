@@ -15,7 +15,7 @@ func ConfigENV() {
 	/**
 	* Highlights: Strapi information gateway
 	 */
-	os.Setenv(constants.HOST_STRAPI_SERVICE, "https://api.unisun.dynu.com")
+	os.Setenv(constants.HOST_STRAPI_SERVICE, "http://localhost:8082")
 	os.Setenv(constants.PATH_STRAPI_INFORMATION_GATEWAY, "/strapi-information-gateway/api/strapi")
 	os.Setenv(constants.PATH_STRAPI_COURSE, "/api/courses")
 	/**

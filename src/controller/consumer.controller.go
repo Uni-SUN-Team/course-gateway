@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 	"unisun/api/course-listenner/src/constants"
 	"unisun/api/course-listenner/src/model"
@@ -28,7 +27,7 @@ import (
 func CourseAll(c *gin.Context) {
 	var payloadRequest = model.ServiceIncomeRequest{}
 	var response = model.ResponseCourseAll{}
-	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "?populate[thumnail]=*&populate[advisors][populate][thumnail]=*"
+	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "?populate[thumbnail]=*&populate[advisors][populate][thumbnail]=*"
 	payloadRequest.Method = constants.GET
 	payloadRequest.Body = nil
 	if query := c.Request.URL.RawQuery; query != "" {
@@ -45,11 +44,11 @@ func CourseAll(c *gin.Context) {
 	} else {
 		err = nil
 	}
-	for index, item := range courses.Data {
-		var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(item.Id, 10))
-		courses.Data[index].Rate.Star = data_feedback.Score
-		courses.Data[index].Rate.Total = data_feedback.Count
-	}
+	// for index, item := range courses.Data {
+	// 	var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(item.Id, 10))
+	// 	courses.Data[index].Rate.Star = data_feedback.Score
+	// 	courses.Data[index].Rate.Total = data_feedback.Count
+	// }
 	response.Error = err
 	response.Result = courses.Data
 	response.Pagination = courses.Meta.Pagination
@@ -72,7 +71,7 @@ func CourseById(c *gin.Context) {
 	var course model.Course
 	var payloadRequest = model.ServiceIncomeRequest{}
 	var response = model.ResponseCourse{}
-	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "/" + id + "?populate[course_content][populate]=*&populate[thumnail]=*&populate[course_high_light]=*&populate[advisors][populate][thumnail]=*&populate[categories]=*"
+	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "/" + id + "?populate[Course][populate]=*&populate[thumbnail]=*&populate[course_high_light]=*&populate[advisors][populate][thumbnail]=*&populate[categories]=*"
 	payloadRequest.Method = constants.GET
 	payloadRequest.Body = nil
 
@@ -86,9 +85,9 @@ func CourseById(c *gin.Context) {
 	} else {
 		err = nil
 	}
-	var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(course.Data.Id, 10))
-	course.Data.Rate.Star = data_feedback.Score
-	course.Data.Rate.Total = data_feedback.Count
+	// var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(course.Data.Id, 10))
+	// course.Data.Rate.Star = data_feedback.Score
+	// course.Data.Rate.Total = data_feedback.Count
 	response.Error = err
 	response.Result = course.Data
 	c.JSON(http.StatusOK, response)
@@ -110,7 +109,7 @@ func CourseBySlug(c *gin.Context) {
 	var courses model.CourseSlug
 	var payloadRequest = model.ServiceIncomeRequest{}
 	var response = model.ResponseCourse{}
-	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "?populate[course_content][populate]=*&populate[thumnail]=*&populate[course_high_light]=*&populate[advisors][populate][thumnail]=*&populate[categories]=*&filters[slug][$eq]=" + slug
+	payloadRequest.Path = os.Getenv(constants.PATH_STRAPI_COURSE) + "?populate[Course][populate]=*&populate[thumbnail]=*&populate[course_high_light]=*&populate[advisors][populate][thumbnail]=*&populate[categories]=*&filters[slug][$eq]=" + slug
 	payloadRequest.Method = constants.GET
 	payloadRequest.Body = nil
 
@@ -125,9 +124,9 @@ func CourseBySlug(c *gin.Context) {
 		err = nil
 	}
 	var course = courses.Data[0]
-	var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(course.Id, 10))
-	course.Rate.Star = data_feedback.Score
-	course.Rate.Total = data_feedback.Count
+	// var data_feedback = service.CallSumRateScoreFeedback(strconv.FormatInt(course.Id, 10))
+	// course.Rate.Star = data_feedback.Score
+	// course.Rate.Total = data_feedback.Count
 	response.Error = err
 	response.Result = course
 	c.JSON(http.StatusOK, response)
