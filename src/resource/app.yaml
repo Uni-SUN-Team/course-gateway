@@ -1,0 +1,20 @@
+app:
+  env: "development"
+  port: 8082
+  context_path: "/course-listener"
+  host: "localhost"
+  root_path: "/api"
+  version: 1.0.0
+endpoint:
+  strapi-information-gateway:
+    host: "http://localhost:8080"
+    path: "/strapi-information-gateway/api/v1/strapi"
+    mapping:
+      course:
+        path: "/api/courses"
+        query:
+          value: "?populate[thumbnail]=*&populate[course_high_light]=*&populate[advisors]=*&populate[categories]=*&populate[SEO][populate][shareImage][populate]=*&populate[video_content]=*&populate[video_preview]=*&populate[file]=*"
+  advisor:
+    host: "http://localhost:8081"
+    path: "/advisor-listener/api/v1/advisors/"
+GIN_MODE: "debug"

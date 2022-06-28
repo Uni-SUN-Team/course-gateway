@@ -1,4 +1,4 @@
-package model
+package advisor
 
 type thumbnailLarge struct {
 	Id                int64                `json:"id"`

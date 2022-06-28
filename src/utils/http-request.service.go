@@ -2,13 +2,18 @@ package utils
 
 import (
 	"bytes"
-	"log"
 	"net/http"
 	"time"
-	"unisun/api/course-listenner/src/constants"
+	"unisun/api/course-listener/src/constants"
 )
 
-func HTTPRequest(url string, method string, payload []byte) *http.Response {
+type UtilsHTTPRequestAdapter struct{}
+
+func NewUtilsHTTPRequestAdapter() *UtilsHTTPRequestAdapter {
+	return &UtilsHTTPRequestAdapter{}
+}
+
+func (*UtilsHTTPRequestAdapter) HTTPRequest(url string, method string, payload []byte) (*http.Response, error) {
 	var request *http.Request
 	var err error
 	var body *bytes.Buffer
@@ -35,16 +40,16 @@ func HTTPRequest(url string, method string, payload []byte) *http.Response {
 		body = bytes.NewBuffer(nil)
 	}
 	if err != nil {
-		log.Panic("Create request error.", err.Error())
+		return nil, err
 	}
 	request, err = http.NewRequest(method, url, body)
 	if err != nil {
-		log.Panic("Client request to "+url+" is not success.", err.Error())
+		return nil, err
 	}
 	request.Header.Add("Content-type", "application/json")
 	response, err := client.Do(request)
 	if err != nil {
-		log.Panic("Client is error.", err.Error())
+		return nil, err
 	}
-	return response
+	return response, nil
 }

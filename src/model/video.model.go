@@ -1,13 +1,13 @@
 package model
 
-type Video struct {
+type video struct {
 	Id                int64           `json:"id"`
-	Name              string          `json:"name"`
+	Name              string          `json:"string"`
 	AlternativeText   string          `json:"alternativeText"`
 	Caption           string          `json:"caption"`
 	Width             int64           `json:"width"`
 	Height            int64           `json:"height"`
-	Formats           FormatAttribute `json:"formats"`
+	Formats           formatAttribute `json:"formats"`
 	Hash              string          `json:"hash"`
 	Ext               string          `json:"ext"`
 	Mime              string          `json:"mime"`

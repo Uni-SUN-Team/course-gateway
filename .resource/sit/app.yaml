@@ -1,0 +1,18 @@
+app:
+  env: "production"
+  port: 8080
+  context_path: "/advisor-listener"
+  host: "api.unisun.dynu.com"
+  root_path: "/api"
+  version: 1.0.0
+endpoint:
+  strapi-information-gateway:
+    host: "http://strapi-information-gateway:8080"
+    path: "/strapi-information-gateway/api/v1/strapi"
+  advisor:
+    path: /api/advisors
+    query:
+      value: "?populate[attachment]=*&populate[SEO][populate][shareImage][populate]=*&populate[thumbnail]=*&populate[categories]=*"
+GIN_MODE: "release"
+log:
+  path: "/Users/ns/Documents/UniSUN/strapi-information-gateway/tmp/app.log"

@@ -1,14 +1,14 @@
-package model
+package advisor
 
-type ResponseCourses struct {
-	courses
+type ResponseAdvisors struct {
+	advisors
 }
 
-type ResponseCourse struct {
-	course
+type ResponseAdvisor struct {
+	advisor
 }
 
-type ResponseFail struct {
+type ResponseAdvisorFail struct {
 	Data  interface{} `json:"data"`
 	Error error       `json:"error"`
 }
