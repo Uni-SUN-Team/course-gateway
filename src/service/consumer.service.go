@@ -3,7 +3,6 @@ package service
 import (
 	"encoding/json"
 	"io/ioutil"
-	"strconv"
 	"strings"
 	"unisun/api/course-listener/src/constants"
 	"unisun/api/course-listener/src/model"
@@ -45,9 +44,8 @@ func (srv *ServiceConsumerAdapter) GetInformationFormStrapi(payloadRequest model
 	return serviceIncomeResponse.Payload, nil
 }
 
-func (srv *ServiceConsumerAdapter) GetAdvisorInfomation(id int64) (string, error) {
-	_id := strconv.Itoa(int(id))
-	url := strings.Join([]string{viper.GetString("endpoint.advisor.host"), viper.GetString("endpoint.advisor.path"), _id}, "")
+func (srv *ServiceConsumerAdapter) GetAdvisorInfomation(ids string) (string, error) {
+	url := strings.Join([]string{viper.GetString("endpoint.advisor.host"), viper.GetString("endpoint.advisor.path"), ids}, "")
 	response, err := srv.HTTPRequest.HTTPRequest(url, constants.GET, nil)
 	if err != nil {
 		return "", err

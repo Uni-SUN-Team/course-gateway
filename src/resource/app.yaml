@@ -16,5 +16,5 @@ endpoint:
           value: "?populate[thumbnail]=*&populate[course_high_light]=*&populate[advisors]=*&populate[categories]=*&populate[SEO][populate][shareImage][populate]=*&populate[video_content]=*&populate[video_preview]=*&populate[file]=*"
   advisor:
     host: "http://localhost:8081"
-    path: "/advisor-listener/api/v1/advisors/"
+    path: "/advisor-listener/api/v1/advisors"
 GIN_MODE: "debug"

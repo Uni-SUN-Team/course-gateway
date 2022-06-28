@@ -3,6 +3,8 @@ package component
 import (
 	"encoding/json"
 	"log"
+	"strconv"
+	"strings"
 	"unisun/api/course-listener/src/model/advisor"
 	"unisun/api/course-listener/src/ports"
 )
@@ -18,18 +20,23 @@ func NewServiceConsumerAdap(service ports.ConsumerService) *ServiceConsumerAdap 
 }
 
 func (srv *ServiceConsumerAdap) MappingAdvisor(value []advisor.AdvisorData) ([]advisor.AdvisorData, error) {
-	resultAdvisors := []advisor.AdvisorData{}
-	for _, a := range value {
-		advisorForm := advisor.ResponseAdvisor{}
-		result, err := srv.Service.GetAdvisorInfomation(a.Id)
-		if err != nil {
-			log.Panic(err)
+	ids := []string{}
+	for i, a := range value {
+		optional := "?"
+		if i > 0 {
+			optional = "&"
 		}
-		err = json.Unmarshal([]byte(result), &advisorForm)
-		if err != nil {
-			log.Panic(err)
-		}
-		resultAdvisors = append(resultAdvisors, advisorForm.Data)
+		queryFilter := strings.Join([]string{optional, "filters[id][$in][", strconv.Itoa(i), "]=", strconv.Itoa(int(a.Id))}, "")
+		ids = append(ids, queryFilter)
 	}
-	return resultAdvisors, nil
+	advisorForm := advisor.ResponseAdvisors{}
+	result, err := srv.Service.GetAdvisorInfomation(strings.Join(ids, ""))
+	if err != nil {
+		log.Panic(err)
+	}
+	err = json.Unmarshal([]byte(result), &advisorForm)
+	if err != nil {
+		log.Panic(err)
+	}
+	return advisorForm.Data, nil
 }
